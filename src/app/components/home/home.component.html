@@ -1,0 +1,75 @@
+<div class="toolbar" role="banner">
+   <span>Welcome</span>
+  <div class="spacer"></div>
+
+</div>
+
+<div class="content" role="main">
+
+
+
+
+
+  <div class="card-container">
+
+    <section>
+      <mat-card>
+        <mat-card-title>Search Name</mat-card-title>
+        <form [formGroup]="userForm" autocomplete="off" novalidate (ngSubmit)="searchName(userForm.value)">
+          <mat-card-content>
+
+            <div class="example-container">
+              <mat-form-field appearance="outline" floatLabel="always">
+                <input matInput type="text" placeholder="Name" formControlName="name" id="name">
+                <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+              </mat-form-field>
+              <button class="btn-submit" mat-raised-button color="primary" [disabled]="!userForm.valid">Submit</button>
+
+
+            </div>
+
+          </mat-card-content>
+          <br>
+
+
+        </form>
+      </mat-card>
+      <mat-card class="example-card" *ngIf="!loading">
+        <mat-card-header>
+
+        </mat-card-header>
+
+        <mat-card-content>
+          <mat-grid-list cols="3">
+            <mat-grid-tile>
+              <button [disabled]="items.length<2 || selectedIndex==0" color="primary" mat-fab extended
+                (click)="onPrevClick()">
+                Prev
+              </button>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <div *ngIf="items.length>0 ">
+                <img style="height: 240px;width: 240px;" mat-card-image [src]="imgData">
+              </div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <button [disabled]="items.length<2 || (selectedIndex==(items.length-1))" mat-fab color="primary" extended
+                (click)="onNextClick()">
+                Next
+              </button>
+            </mat-grid-tile>
+          </mat-grid-list>
+
+        </mat-card-content>
+
+      </mat-card>
+    </section>
+  </div>
+
+</div>
+<div class="overlay" *ngIf="loading">
+  <div class="center">
+    <mat-progress-spinner diameter=50 mode="indeterminate" color="primary">
+    </mat-progress-spinner>
+  </div>
+</div>
